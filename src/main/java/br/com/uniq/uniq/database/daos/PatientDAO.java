@@ -23,7 +23,6 @@ public class PatientDAO {
         }
 
         Connection connection = ConnectionFactory.getConnection();
-        System.out.println();
         try {
             String sql;
 
@@ -37,9 +36,9 @@ public class PatientDAO {
                 ps.setInt(3, patient.getAge());
                 ps.setString(4, patient.getPassword());
 
-
                 ps.executeUpdate();
                 System.out.println("Paciente registrado com sucesso!");
+                connection.close();
             }
         } catch (Exception e) {
             throw new Exception("Erro ao registrar paciente: " + patient.getCpfPatient());
@@ -67,6 +66,7 @@ public class PatientDAO {
                 isSignUp = true;
             }
         }
+        connection.close();
         return isSignUp;
     }
 }

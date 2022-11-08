@@ -1,4 +1,4 @@
-package br.com.uniq.uniq.controller;
+package br.com.uniq.uniq.controllers;
 
 import br.com.uniq.uniq.database.daos.PatientDAO;
 import br.com.uniq.uniq.database.dbos.Patient;
