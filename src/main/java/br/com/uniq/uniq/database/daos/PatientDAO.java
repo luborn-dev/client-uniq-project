@@ -23,21 +23,22 @@ public class PatientDAO {
         }
 
         Connection connection = ConnectionFactory.getConnection();
-        System.out.println();
         try {
             String sql;
 
             sql = "INSERT INTO [dbo].[Pacientes] " +
-                  "(nome, cpf_paciente, idade) " +
-                  "VALUES (?, ?, ?)";
+                  "(nome, cpf_paciente, idade, senha) " +
+                  "VALUES (?, ?, ?, ?)";
             if (connection != null) {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setString(1, patient.getName());
                 ps.setString(2, patient.getCpfPatient());
                 ps.setInt(3, patient.getAge());
+                ps.setString(4, patient.getPassword());
 
                 ps.executeUpdate();
                 System.out.println("Paciente registrado com sucesso!");
+                connection.close();
             }
         } catch (Exception e) {
             throw new Exception("Erro ao registrar paciente: " + patient.getCpfPatient());
@@ -65,6 +66,7 @@ public class PatientDAO {
                 isSignUp = true;
             }
         }
+        connection.close();
         return isSignUp;
     }
 }
