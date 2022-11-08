@@ -1,5 +1,7 @@
 package br.com.uniq.uniq.controller;
 
+import br.com.uniq.uniq.database.daos.PatientDAO;
+import br.com.uniq.uniq.database.dbos.Patient;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -23,7 +25,7 @@ public class SignUpController implements Initializable {
     private JFXButton btnCadastrar;
 
     @FXML
-    private JFXPasswordField cadastroCidade;
+    private JFXTextField cadastroCpf;
 
     @FXML
     private JFXTextField cadastroNome;
@@ -32,12 +34,19 @@ public class SignUpController implements Initializable {
     private JFXPasswordField cadastroPassword;
 
     @FXML
-    private JFXTextField cadastroUsername;
+    private JFXTextField cadastroIdade;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnBackToLogin.setOnAction(event -> {
             backToLogin();
+        });
+        btnCadastrar.setOnAction(actionEvent -> {
+            try{
+                PatientDAO.signUp(new Patient(cadastroNome.getText(),cadastroCpf.getText(), Integer.parseInt(cadastroIdade.getText()), cadastroPassword.getText()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 

@@ -21,11 +21,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        try{
-            CallBd.addPatient();
-        } catch (Exception e){
-            System.out.println(e);
-        }
         launch();
     }
 }

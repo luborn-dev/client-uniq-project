@@ -6,6 +6,7 @@ public class Patient implements Cloneable {
     private String cpfPatient;
     private String name;
     private int age;
+    private String password;
 
     public void setAge(int age) {
         this.age = age;
@@ -17,6 +18,9 @@ public class Patient implements Cloneable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getAge() {
@@ -31,10 +35,16 @@ public class Patient implements Cloneable {
         return name;
     }
 
-    public Patient(String name, String cpfPatient, int age) {
+    public String getPassword() {
+        return password;
+    }
+
+
+    public Patient(String name, String cpfPatient, int age, String password) {
         this.name = name;
         this.cpfPatient = cpfPatient;
         this.age = age;
+        this.password = password;
     }
 
     @Override
