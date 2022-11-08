@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="768.0" minWidth="1024.0" style="-fx-background-color: #4fc3f7;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.uniq.uniq.controller.HomeController">
+    <children>
+        <AnchorPane layoutX="154.0" layoutY="162.0" prefHeight="606.0" prefWidth="881.0" style="-fx-background-color: white;" />
+      <JFXButton fx:id="homeBtnHome" focusTraversable="false" layoutX="-14.0" layoutY="326.0" prefHeight="49.0" prefWidth="119.0" style="-fx-background-color: #81d4fa;" text="Início">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton focusTraversable="false" layoutX="-14.0" layoutY="394.0" prefHeight="49.0" prefWidth="119.0" style="-fx-background-color: #81d4fa;" text="Agenda">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton focusTraversable="false" layoutX="-14.0" layoutY="463.0" prefHeight="49.0" prefWidth="119.0" style="-fx-background-color: #81d4fa;" text="Exames">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font></JFXButton>
+      <JFXButton focusTraversable="false" layoutX="-14.0" layoutY="531.0" prefHeight="49.0" prefWidth="119.0" style="-fx-background-color: #81d4fa;" text="Covid">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font></JFXButton>
+      <JFXButton focusTraversable="false" layoutX="-15.0" layoutY="592.0" prefHeight="49.0" prefWidth="119.0" style="-fx-background-color: #81d4fa;" text="F.A.Q">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="labelWelcome" layoutX="814.0" layoutY="134.0">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="154.0" layoutY="162.0" prefHeight="58.0" prefWidth="882.0" style="-fx-background-color: #4ba2c6;" />
+    </children>
+</AnchorPane>

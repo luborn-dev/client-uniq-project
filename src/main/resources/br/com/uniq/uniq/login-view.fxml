@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="768.0" minWidth="1024.0" style="-fx-background-color: #4fc3f7;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.uniq.uniq.controller.LoginController">
+    <children>
+      <AnchorPane layoutY="200.0" prefHeight="572.0" prefWidth="1024.0" style="-fx-background-color: white;">
+         <children>
+              <JFXTextField fx:id="loginCpf" focusColor="#0093c4" layoutX="350.0" layoutY="152.0" prefHeight="40.0" prefWidth="332.0" promptText="CPF" unFocusColor="BLACK">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXTextField>
+              <JFXPasswordField fx:id="loginPassword" focusColor="#0093c4" layoutX="351.0" layoutY="254.0" prefHeight="40.0" prefWidth="334.0" promptText="Password" unFocusColor="BLACK">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXPasswordField>
+              <JFXButton fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="382.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="ACESSAR" textFill="WHITE">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="loginForgetPass" layoutX="458.0" layoutY="450.0" prefHeight="26.0" prefWidth="120.0" text="Esqueci a senha">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+        <Label contentDisplay="CENTER" layoutX="413.0" layoutY="62.0" text="UNIQ">
+            <font>
+                <Font name="Arial Bold" size="79.0" />
+            </font>
+        </Label>
+      <JFXButton fx:id="loginSignUp" layoutX="859.0" layoutY="16.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="CADASTRO" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <AnchorPane layoutX="-2.0" layoutY="199.0" prefHeight="58.0" prefWidth="1026.0" style="-fx-background-color: #4ba2c6;">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="476.0" layoutY="12.0" prefHeight="36.0" prefWidth="77.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>
