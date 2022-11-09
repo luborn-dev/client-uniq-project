@@ -1,4 +1,4 @@
-package br.com.uniq.uniq.database;
+package br.com.uniq.database;
 
 import java.sql.*;
 import java.util.logging.Logger;
