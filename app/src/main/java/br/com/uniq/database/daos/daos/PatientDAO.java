@@ -8,7 +8,13 @@ import java.sql.ResultSet;
 
 public class PatientDAO {
 
-    public static void signUp(Patient patient) throws Exception {
+    private static PatientDAO instance;
+
+    public static PatientDAO getInstance() {
+        return (instance == null) ? new PatientDAO() : instance;
+    }
+
+    public void signUp(Patient patient) throws Exception {
         if (patient == null) {
             throw new Exception("Paciente não fornecido");
         }
@@ -45,7 +51,7 @@ public class PatientDAO {
         }
     }
 
-    public static boolean isSignUp(String cpfPatient) throws Exception {
+    public boolean isSignUp(String cpfPatient) throws Exception {
         if (cpfPatient == null) {
             throw new Exception("CPF não inserido.");
         }

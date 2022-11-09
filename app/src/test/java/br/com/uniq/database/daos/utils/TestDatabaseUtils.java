@@ -14,7 +14,7 @@ public class TestDatabaseUtils {
     @DisplayName("Deleta um paciente com sucesso")
     void deletePatient_testDeleteExistingPatient() throws Exception {
         Patient patient = new Patient("Roberto", "12345678901", 22, "123");
-        PatientDAO.signUp(patient);
+        PatientDAO.getInstance().signUp(patient);
         Patient rsPatient = DatabaseUtils.getPatientByCPF(patient.getCpfPatient());
 
         assertEquals(rsPatient.toString(), patient.toString());

@@ -43,7 +43,7 @@ public class SignUpController implements Initializable {
         });
         btnCadastrar.setOnAction(actionEvent -> {
             try{
-                PatientDAO.signUp(new Patient(cadastroNome.getText(),cadastroCpf.getText(), Integer.parseInt(cadastroIdade.getText()), cadastroPassword.getText()));
+                PatientDAO.getInstance().signUp(new Patient(cadastroNome.getText(),cadastroCpf.getText(), Integer.parseInt(cadastroIdade.getText()), cadastroPassword.getText()));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
