@@ -1,7 +1,7 @@
 package br.com.uniq.controllers;
 
-import br.com.uniq.database.daos.daos.PatientDAO;
-import br.com.uniq.database.daos.dbos.Patient;
+import br.com.uniq.database.daos.PatientDAO;
+import br.com.uniq.database.dbos.Patient;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;

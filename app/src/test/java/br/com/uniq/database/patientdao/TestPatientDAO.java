@@ -1,7 +1,7 @@
-package br.com.uniq.database.daos.patientdao;
+package br.com.uniq.database.patientdao;
 
-import br.com.uniq.database.daos.daos.PatientDAO;
-import br.com.uniq.database.daos.dbos.Patient;
+import br.com.uniq.database.daos.PatientDAO;
+import br.com.uniq.database.dbos.Patient;
 import br.com.uniq.utils.DatabaseUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

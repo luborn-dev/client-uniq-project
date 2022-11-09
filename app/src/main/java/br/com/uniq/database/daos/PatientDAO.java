@@ -1,7 +1,7 @@
-package br.com.uniq.database.daos.daos;
+package br.com.uniq.database.daos;
 
-import br.com.uniq.database.daos.ConnectionFactory;
-import br.com.uniq.database.daos.dbos.Patient;
+import br.com.uniq.database.ConnectionFactory;
+import br.com.uniq.database.dbos.Patient;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

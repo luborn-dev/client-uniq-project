@@ -1,4 +1,4 @@
-package br.com.uniq.database.daos.dbos;
+package br.com.uniq.database.dbos;
 
 import java.util.Objects;
 
