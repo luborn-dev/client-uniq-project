@@ -4,8 +4,8 @@ module br.com.uniq.uniq {
     requires com.jfoenix;
     requires java.sql;
 
-    opens br.com.uniq.uniq to javafx.fxml;
-    exports br.com.uniq.uniq;
-    exports br.com.uniq.uniq.controllers;
-    opens br.com.uniq.uniq.controllers to javafx.fxml;
+    opens br.com.uniq to javafx.fxml;
+    exports br.com.uniq;
+    exports br.com.uniq.controllers;
+    opens br.com.uniq.controllers to javafx.fxml;
 }

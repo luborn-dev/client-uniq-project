@@ -1,4 +1,4 @@
-package br.com.uniq.database;
+package br.com.uniq.database.daos;
 
 import java.sql.*;
 import java.util.logging.Logger;

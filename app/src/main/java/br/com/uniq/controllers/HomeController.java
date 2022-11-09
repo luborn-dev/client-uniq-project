@@ -1,4 +1,4 @@
-package br.com.uniq.uniq.controllers;
+package br.com.uniq.controllers;
 
 import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;

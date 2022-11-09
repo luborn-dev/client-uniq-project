@@ -1,4 +1,4 @@
-package br.com.uniq.uniq.utils;
+package br.com.uniq.utils;
 
 public class PatientUtils {
 

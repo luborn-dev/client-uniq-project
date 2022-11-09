@@ -1,8 +1,7 @@
-package br.com.uniq.uniq.utils;
+package br.com.uniq.utils;
 
-import br.com.uniq.uniq.database.ConnectionFactory;
-import br.com.uniq.uniq.database.dbos.Patient;
-
+import br.com.uniq.database.daos.ConnectionFactory;
+import br.com.uniq.database.daos.dbos.Patient;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,7 +47,7 @@ public class DatabaseUtils {
                         rs.getString("nome"),
                         rs.getString("cpf_paciente"),
                         rs.getInt("idade"),
-                        rs.getString());
+                        rs.getString("senha"));
             }
         }
         return patient;
