@@ -53,7 +53,7 @@ public class SignUpController implements Initializable {
     public void backToLogin(){
         btnBackToLogin.getScene().getWindow().hide();
         FXMLLoader loader3 = new FXMLLoader();
-        loader3.setLocation(getClass().getResource("/br/com/uniq/uniq/login-view.fxml"));
+        loader3.setLocation(getClass().getResource("/br/com/uniq/login-view.fxml"));
         try {
             loader3.load();
         } catch (IOException e) {

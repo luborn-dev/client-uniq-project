@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
             loginButton.getScene().getWindow().hide();
 
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/br/com/uniq/uniq/home-view.fxml"));
+                loader.setLocation(getClass().getResource("/br/com/uniq/home-view.fxml"));
             try {
                 loader.load();
             } catch (IOException e) {
@@ -68,7 +68,7 @@ public class LoginController implements Initializable {
     public void signUpUser(){
         loginSignUp.getScene().getWindow().hide();
         FXMLLoader loader2 = new FXMLLoader();
-        loader2.setLocation(getClass().getResource("/br/com/uniq/uniq/signup-view.fxml"));
+        loader2.setLocation(getClass().getResource("/br/com/uniq/signup-view.fxml"));
         try {
             loader2.load();
         } catch (IOException e) {
