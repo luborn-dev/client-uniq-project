@@ -15,6 +15,7 @@ public class PatientDAO {
     }
 
     public void signUp(Patient patient) throws Exception {
+        System.out.println(patient.getCpfPatient());
         if (patient == null) {
             throw new Exception("Paciente não fornecido");
         }
@@ -32,15 +33,15 @@ public class PatientDAO {
         try {
             String sql;
 
-            sql = "INSERT INTO [dbo].[Pacientes] " +
-                  "(nome, cpf_paciente, idade, senha) " +
+            sql = "INSERT INTO [dbo].[PACIENTES] " +
+                  "(Nome_paciente, CPF_paciente, Senha, Idade) " +
                   "VALUES (?, ?, ?, ?)";
             if (connection != null) {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setString(1, patient.getName());
                 ps.setString(2, patient.getCpfPatient());
-                ps.setInt(3, patient.getAge());
                 ps.setString(4, patient.getPassword());
+                ps.setInt(3, patient.getAge());
 
                 ps.executeUpdate();
                 System.out.println("Paciente registrado com sucesso!");

@@ -1,53 +1,74 @@
 package br.com.uniq.controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import br.com.uniq.Cliente;
+import br.com.uniq.MyString;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LoginController implements Initializable {
     @FXML
-    private JFXButton loginButton;
+    private Button loginButton;
 
     @FXML
-    private JFXButton loginForgetPass;
+    private Button loginForgetPass;
 
     @FXML
-    private JFXPasswordField loginPassword;
+    private PasswordField loginPassword;
 
     @FXML
-    private JFXButton loginSignUp;
+    private Button loginSignUp;
 
     @FXML
-    private JFXTextField loginCpf;
+    private TextField loginCpf;
+    private Socket socket;
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         loginButton.setOnAction(event -> {
-                loginUser();
+            try {
+                onLoginButtonClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            loginUser();
         });
 
         loginSignUp.setOnAction(event -> {
             signUpUser();
         });
-
     }
+
+    protected void onLoginButtonClick() throws IOException {
+        Cliente runnable = new Cliente(socket, new MyString(loginCpf.getText()),1);
+        new Thread(runnable).start();
+        System.out.println(runnable.getCasted());
+    }
+
     public void loginUser(){
         if(!loginCpf.getText().toString().equals("")) {
             loginButton.getScene().getWindow().hide();
 
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/br/com/uniq/home-view.fxml"));
+                loader.setLocation(getClass().getResource("/br/com/uniq/exams-view.fxml"));
             try {
                 loader.load();
             } catch (IOException e) {
@@ -59,16 +80,16 @@ public class LoginController implements Initializable {
             homeStage.setResizable(false);
 
             HomeController homeController = loader.getController();
-            homeController.setName(loginCpf.getText().trim());
+
 
             homeStage.show();
         }
     }
 
     public void signUpUser(){
-        loginSignUp.getScene().getWindow().hide();
+        loginButton.getScene().getWindow().hide();
         FXMLLoader loader2 = new FXMLLoader();
-        loader2.setLocation(getClass().getResource("/br/com/uniq/signup-view.fxml"));
+        loader2.setLocation(getClass().getResource("/br/com/uniq/cadastro-view.fxml"));
         try {
             loader2.load();
         } catch (IOException e) {
@@ -79,7 +100,8 @@ public class LoginController implements Initializable {
         signUpStage.setScene(new Scene(root2));
         signUpStage.setResizable(false);
 
-        SignUpController signUpController = loader2.getController();
+        CadastroController cadastroController = loader2.getController();
+        cadastroController.setSocket(socket);
         signUpStage.show();
     }
 }

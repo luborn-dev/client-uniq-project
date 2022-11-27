@@ -1,22 +1,24 @@
 package br.com.uniq;
 
+import br.com.uniq.controllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Main extends Application {
+public class Main extends Application implements Initializable {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
+        Socket socket = new Socket("localhost", 3000);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
+        LoginController loginController = fxmlLoader.getController();
+        loginController.setSocket(socket);
         stage.setTitle("Uniq!");
         stage.setResizable(false);
         stage.setScene(scene);
@@ -24,38 +26,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // launch();
-        // UNCOMMENT THE LINE ABOVE TO RUN JAVA.FX
+        launch();
+    }
 
-        // BELOW CODE IS JUST TESTING THE CLIENT-SERVER
-        try
-        {
-            Socket conexao = new Socket ("localhost",7777);
-            PrintWriter transmissor =
-                    new PrintWriter (
-                            conexao.getOutputStream ());
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            BufferedReader teclado =
-                    new BufferedReader (
-                            new InputStreamReader(
-                                    System.in));
-
-            String texto;
-
-            do
-            {
-                texto = teclado.readLine ();
-                transmissor.println (texto);
-                transmissor.flush ();
-            }
-            while (!texto.equalsIgnoreCase("FIM"));
-
-            transmissor.close();
-            conexao.close();
-        }
-        catch (Exception erro)
-        {
-            System.err.println (erro.getMessage());
-        }
     }
 }

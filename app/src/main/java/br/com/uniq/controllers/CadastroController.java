@@ -1,57 +1,61 @@
 package br.com.uniq.controllers;
 
-import br.com.uniq.database.daos.PatientDAO;
-import br.com.uniq.database.dbos.Patient;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import br.com.uniq.Cliente;
+import br.com.uniq.MeuObj;
+import br.com.uniq.MyString;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SignUpController implements Initializable {
+public class CadastroController implements Initializable {
+    @FXML
+    private Button btnCadastrar;
 
     @FXML
-    private JFXButton btnBackToLogin;
+    private Button btnVoltar;
 
     @FXML
-    private JFXButton btnCadastrar;
+    private TextField entryCpf;
 
     @FXML
-    private JFXTextField cadastroCpf;
+    private TextField entryIdade;
 
     @FXML
-    private JFXTextField cadastroNome;
+    private TextField entryNome;
 
     @FXML
-    private JFXPasswordField cadastroPassword;
+    private PasswordField entrySenha;
 
-    @FXML
-    private JFXTextField cadastroIdade;
+    private Socket socket;
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnBackToLogin.setOnAction(event -> {
+        btnVoltar.setOnAction( event ->{
             backToLogin();
         });
-        btnCadastrar.setOnAction(actionEvent -> {
-            try{
-                PatientDAO.getInstance().signUp(new Patient(cadastroNome.getText(),cadastroCpf.getText(), Integer.parseInt(cadastroIdade.getText()), cadastroPassword.getText()));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+
+        btnCadastrar.setOnAction( event ->{
+            cadastrarNovoCliente();
         });
     }
 
     public void backToLogin(){
-        btnBackToLogin.getScene().getWindow().hide();
+        btnVoltar.getScene().getWindow().hide();
         FXMLLoader loader3 = new FXMLLoader();
         loader3.setLocation(getClass().getResource("/br/com/uniq/login-view.fxml"));
         try {
@@ -63,9 +67,11 @@ public class SignUpController implements Initializable {
         Stage loginStage = new Stage();
         loginStage.setScene(new Scene(root3));
         loginStage.setResizable(false);
-
         loginStage.show();
-
     }
 
+    public void cadastrarNovoCliente(){
+        new Thread(new Cliente(socket, new MeuObj(entryNome.getText(), entryCpf.getText(),
+                Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2)).start();
+    }
 }
