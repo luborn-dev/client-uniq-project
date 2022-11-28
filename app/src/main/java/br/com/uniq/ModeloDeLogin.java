@@ -1,10 +1,10 @@
 package br.com.uniq;
 
-public class LoginModelo extends Comunicado {
+public class ModeloDeLogin extends Comunicado {
     private String cpf;
     private String senha;
 
-    public LoginModelo(String cpf, String senha) {
+    public ModeloDeLogin(String cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
     }

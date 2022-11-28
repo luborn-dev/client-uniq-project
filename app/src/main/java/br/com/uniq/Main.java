@@ -3,16 +3,12 @@ package br.com.uniq;
 import br.com.uniq.controllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.Socket;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class Main extends Application implements Initializable {
+public class Main extends Application {
     static Socket socket;
     @Override
     public void start(Stage stage) throws Exception {
@@ -28,12 +24,7 @@ public class Main extends Application implements Initializable {
 
     public static void main(String[] args) throws IOException {
         socket = new Socket("localhost", 3000);
-
         launch();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 }

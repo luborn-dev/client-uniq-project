@@ -9,36 +9,80 @@ public class Cliente implements Runnable {
     private Socket socket;
     private ObjectOutputStream transmissor;
     private ObjectInputStream receptor;
-    private MeuObj meuObj;
     private int opc;
-    private LoginModelo loginModelo;
-    private CastingToDb casted;
+    private ModeloDeCadastro modeloDeCadastro;
+    private ModeloDeLogin modeloDeLogin;
+    private RespostaDoServidor respostaDoServidor;
 
-    public Cliente(Socket socket, MeuObj meuObj, int opc){
+    // CONSTRUTOR PARA ENVIAR SOLICITACAO DE CADASTRO
+    public Cliente(Socket socket, ModeloDeCadastro modeloDeCadastro, int opc){
         try{
             this.socket = socket;
             this.transmissor = new ObjectOutputStream(socket.getOutputStream());
             this.receptor    = new ObjectInputStream(socket.getInputStream());
-            this.meuObj = meuObj;
+            this.modeloDeCadastro = modeloDeCadastro;
             this.opc = opc;
         } catch (IOException e){
-            closeEverything(socket, transmissor, receptor);
+            fecharTodasConexoes(socket, transmissor, receptor);
         }
     }
 
-    public Cliente(Socket socket, LoginModelo loginModelo, int opc){
+    // CONSTRUTOR PARA ENVIAR SOLICITACAO DE LOGIN
+    public Cliente(Socket socket, ModeloDeLogin modeloDeLogin, int opc){
         try{
             this.socket = socket;
             this.transmissor = new ObjectOutputStream(socket.getOutputStream());
             this.receptor    = new ObjectInputStream(socket.getInputStream());
-            this.loginModelo = loginModelo;
+            this.modeloDeLogin = modeloDeLogin;
             this.opc = opc;
         } catch (IOException e){
-            closeEverything(socket, transmissor, receptor);
+            fecharTodasConexoes(socket, transmissor, receptor);
         }
     }
 
-    public void closeEverything(Socket socket, ObjectOutputStream transmissor, ObjectInputStream receptor){
+    @Override
+    public void run() {
+        if (opc==1){
+            this.servidorRecebaLogin();
+        }
+        if (opc==2){
+            this.servidorRecebaCadastro();
+        }
+        else{
+            System.out.println("Usuario nao passou opcao corretamente");
+        }
+    }
+
+    public void servidorRecebaLogin(){
+        try{
+            transmissor.writeObject(modeloDeLogin);
+            RespostaDoServidor recebi;
+            recebi = (RespostaDoServidor) receptor.readObject();
+            setRespostaDoServidor(recebi);
+            transmissor.close();
+        } catch (IOException e){
+            System.out.println(e);
+            fecharTodasConexoes(socket,transmissor,receptor);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void servidorRecebaCadastro(){
+        try{
+            transmissor.writeObject(modeloDeCadastro);
+            RespostaDoServidor recebi;
+            recebi = (RespostaDoServidor) receptor.readObject();
+            setRespostaDoServidor(recebi);
+            System.out.println(recebi.getPayload()+" "+recebi.getStatus());
+//            Thread.currentThread().interrupt(); @TODO
+        } catch (IOException | ClassNotFoundException e){
+            System.out.println(e);
+            fecharTodasConexoes(socket,transmissor,receptor);
+        }
+    }
+
+    public void fecharTodasConexoes(Socket socket, ObjectOutputStream transmissor, ObjectInputStream receptor){
         try{
             if (receptor != null){
                 receptor.close();
@@ -54,54 +98,11 @@ public class Cliente implements Runnable {
         }
     }
 
-    public void userLogin(){
-        try{
-            transmissor.writeObject(loginModelo);
-            CastingToDb recebi;
-            recebi = (CastingToDb) receptor.readObject();
-            setCasted(recebi);
-            transmissor.close();
-        } catch (IOException e){
-            System.out.println(e);
-            closeEverything(socket,transmissor,receptor);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public void setRespostaDoServidor(RespostaDoServidor respostaDoServidor) {
+        this.respostaDoServidor = respostaDoServidor;
     }
 
-    public void userSignUp(){
-        try{
-            transmissor.writeObject(meuObj);
-            CastingToDb recebi;
-            recebi = (CastingToDb) receptor.readObject();
-            setCasted(recebi);
-            System.out.println(recebi.getPayload()+" "+recebi.getStatus());
-//            Thread.currentThread().interrupt(); @TODO
-        } catch (IOException | ClassNotFoundException e){
-            System.out.println(e);
-            closeEverything(socket,transmissor,receptor);
-        }
-    }
-
-    @Override
-    public void run() {
-        System.out.println(opc);
-        if (opc==1){
-            this.userLogin();
-        }
-        if (opc==2){
-            this.userSignUp();
-        }
-        else{
-            System.out.println("Usuario nao passou opcao corretamente");
-        }
-    }
-
-    public void setCasted(CastingToDb casted) {
-        this.casted = casted;
-    }
-
-    public CastingToDb getCasted() {
-        return casted;
+    public RespostaDoServidor getRespostaDoServidor() {
+        return respostaDoServidor;
     }
 }

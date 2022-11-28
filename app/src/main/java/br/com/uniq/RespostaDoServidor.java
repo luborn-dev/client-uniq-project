@@ -2,11 +2,11 @@ package br.com.uniq;
 
 import java.io.Serializable;
 
-public class CastingToDb implements Serializable {
+public class RespostaDoServidor implements Serializable {
     private String payload;
     private String status;
 
-    public CastingToDb(String payload, String status) {
+    public RespostaDoServidor(String payload, String status) {
         this.payload = payload;
         this.status = status;
     }

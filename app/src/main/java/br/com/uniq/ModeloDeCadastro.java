@@ -1,12 +1,12 @@
 package br.com.uniq;
 
-public class MeuObj extends Comunicado{
+public class ModeloDeCadastro extends Comunicado{
     private String nome;
     private String cpf;
     private int idade;
     private String senha;
 
-    public MeuObj(String nome, String cpf, int idade, String senha) {
+    public ModeloDeCadastro(String nome, String cpf, int idade, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.idade = idade;

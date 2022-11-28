@@ -12,17 +12,17 @@
     <children>
       <AnchorPane layoutY="200.0" prefHeight="572.0" prefWidth="1024.0" style="-fx-background-color: white;">
          <children>
-              <TextField fx:id="loginCpf" layoutX="350.0" layoutY="152.0" prefHeight="40.0" prefWidth="332.0" promptText="CPF">
+              <TextField fx:id="usuarioCpf" layoutX="350.0" layoutY="152.0" prefHeight="40.0" prefWidth="332.0" promptText="CPF">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
-              <PasswordField fx:id="loginPassword" layoutX="351.0" layoutY="254.0" prefHeight="40.0" prefWidth="334.0" promptText="Password">
+              <PasswordField fx:id="usuarioSenha" layoutX="351.0" layoutY="254.0" prefHeight="40.0" prefWidth="334.0" promptText="Password">
                <font>
                   <Font size="20.0" />
                </font>
             </PasswordField>
-              <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="382.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="ACESSAR" textFill="WHITE">
+              <Button fx:id="btnLogar" alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="382.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="ACESSAR" textFill="WHITE">
                   <font>
                       <Font size="18.0" />
                   </font>
@@ -37,7 +37,7 @@
                 <Font name="Arial Bold" size="79.0" />
             </font>
         </Label>
-      <Button fx:id="loginSignUp" layoutX="859.0" layoutY="16.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="CADASTRO" textFill="WHITE">
+      <Button fx:id="btnCadastrar" layoutX="859.0" layoutY="16.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="CADASTRO" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>

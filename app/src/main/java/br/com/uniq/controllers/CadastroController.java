@@ -1,7 +1,7 @@
 package br.com.uniq.controllers;
 
 import br.com.uniq.Cliente;
-import br.com.uniq.MeuObj;
+import br.com.uniq.ModeloDeCadastro;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,18 +42,7 @@ public class CadastroController implements Initializable {
         this.socket = socket;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnVoltar.setOnAction( event ->{
-            backToLogin();
-        });
-
-        btnCadastrar.setOnAction( event ->{
-            cadastrarNovoCliente();
-        });
-    }
-
-    public void backToLogin(){
+    public void voltarParaTelaDeLogin(){
         btnVoltar.getScene().getWindow().hide();
         FXMLLoader loader3 = new FXMLLoader();
         loader3.setLocation(getClass().getResource("/br/com/uniq/login-view.fxml"));
@@ -70,10 +59,19 @@ public class CadastroController implements Initializable {
     }
 
     public void cadastrarNovoCliente(){
-        new Thread(new Cliente(socket, new MeuObj(entryNome.getText(), entryCpf.getText(),
+        new Thread(new Cliente(socket, new ModeloDeCadastro(entryNome.getText(), entryCpf.getText(),
                 Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2)).start();
-        backToLogin();
+        voltarParaTelaDeLogin();
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnVoltar.setOnAction( event ->{
+            voltarParaTelaDeLogin();
+        });
 
+        btnCadastrar.setOnAction( event ->{
+            cadastrarNovoCliente();
+        });
     }
 }

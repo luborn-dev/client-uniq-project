@@ -1,7 +1,7 @@
 package br.com.uniq.controllers;
 
 import br.com.uniq.Cliente;
-import br.com.uniq.LoginModelo;
+import br.com.uniq.ModeloDeLogin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,19 +20,17 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     @FXML
-    private Button loginButton;
+    private Button btnLogar;
 
     @FXML
-    private Button loginForgetPass;
+    private TextField usuarioCpf;
 
     @FXML
-    private PasswordField loginPassword;
+    private PasswordField usuarioSenha;
 
     @FXML
-    private Button loginSignUp;
+    private Button btnCadastrar;
 
-    @FXML
-    private TextField loginCpf;
     private Socket socket;
 
     public void setSocket(Socket socket) {
@@ -42,64 +40,57 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        loginButton.setOnAction(event -> {
+        btnCadastrar.setOnAction(event -> {
+            trocarParaTelaDeCadastro();
+        });
+
+        btnLogar.setOnAction(event -> {
             try {
-                onLoginButtonClick();
+                aoClicarNoBotaoDeCadastro();
             } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
-
-        loginSignUp.setOnAction(event -> {
-            signUpUser();
-        });
     }
 
-    protected void onLoginButtonClick() throws IOException, InterruptedException {
-        Cliente runnable = new Cliente(socket, new LoginModelo(loginCpf.getText(),loginPassword.getText()),1);
+    protected void aoClicarNoBotaoDeCadastro() throws IOException, InterruptedException {
+        Cliente runnable = new Cliente(socket, new ModeloDeLogin(usuarioCpf.getText(),usuarioSenha.getText()),1);
         new Thread(runnable).start();
         Thread.currentThread().sleep(10000);
-        if(runnable.getCasted().getStatus().equals("erro")){
-            System.out.println("Falhou");
+        if(runnable.getRespostaDoServidor().getStatus().equals("erro")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
-            alert.setHeaderText(runnable.getCasted().getPayload());
+            alert.setHeaderText(runnable.getRespostaDoServidor().getPayload());
             alert.showAndWait();
+            System.out.println("Falha ao logar");
             socket.close();
             this.socket = new Socket("localhost", 3000);
         }
-        if(runnable.getCasted().getStatus().equals("ok")){
-            System.out.println("Sucesso");
-            loginUser();
-        }
-        System.out.println("->"+runnable.getCasted().getPayload()+"->"+runnable.getCasted().getStatus());
-    }
-
-    public void loginUser(){
-        if(!loginCpf.getText().toString().equals("")) {
-            loginButton.getScene().getWindow().hide();
-
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/br/com/uniq/exams-view.fxml"));
-            try {
-                loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            Parent root = loader.getRoot();
-            Stage homeStage = new Stage();
-            homeStage.setScene(new Scene(root));
-            homeStage.setResizable(false);
-
-            HomeController homeController = loader.getController();
-
-
-            homeStage.show();
+        if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
+            System.out.println("Sucesso ao logar");
+            trocarParaTelaDeExames();
         }
     }
 
-    public void signUpUser(){
-        loginButton.getScene().getWindow().hide();
+    public void trocarParaTelaDeExames(){
+        btnLogar.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/br/com/uniq/exams-view.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Parent root = loader.getRoot();
+        Stage homeStage = new Stage();
+        homeStage.setScene(new Scene(root));
+        homeStage.setResizable(false);
+        HomeController homeController = loader.getController();  // @TODO: Exames, etc.
+        homeStage.show();
+    }
+
+    public void trocarParaTelaDeCadastro(){
+        btnLogar.getScene().getWindow().hide();
         FXMLLoader loader2 = new FXMLLoader();
         loader2.setLocation(getClass().getResource("/br/com/uniq/cadastro-view.fxml"));
         try {
@@ -111,7 +102,6 @@ public class LoginController implements Initializable {
         Stage signUpStage = new Stage();
         signUpStage.setScene(new Scene(root2));
         signUpStage.setResizable(false);
-
         CadastroController cadastroController = loader2.getController();
         cadastroController.setSocket(socket);
         signUpStage.show();
