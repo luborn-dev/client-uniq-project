@@ -2,7 +2,6 @@ package br.com.uniq.controllers;
 
 import br.com.uniq.Cliente;
 import br.com.uniq.MeuObj;
-import br.com.uniq.MyString;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -73,5 +72,8 @@ public class CadastroController implements Initializable {
     public void cadastrarNovoCliente(){
         new Thread(new Cliente(socket, new MeuObj(entryNome.getText(), entryCpf.getText(),
                 Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2)).start();
+        backToLogin();
+
+
     }
 }

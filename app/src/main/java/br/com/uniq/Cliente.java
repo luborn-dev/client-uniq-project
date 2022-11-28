@@ -11,7 +11,7 @@ public class Cliente implements Runnable {
     private ObjectInputStream receptor;
     private MeuObj meuObj;
     private int opc;
-    private MyString cpfTeste;
+    private LoginModelo loginModelo;
     private CastingToDb casted;
 
     public Cliente(Socket socket, MeuObj meuObj, int opc){
@@ -26,65 +26,16 @@ public class Cliente implements Runnable {
         }
     }
 
-    public Cliente(Socket socket, MyString cpfTeste, int opc){
+    public Cliente(Socket socket, LoginModelo loginModelo, int opc){
         try{
             this.socket = socket;
             this.transmissor = new ObjectOutputStream(socket.getOutputStream());
             this.receptor    = new ObjectInputStream(socket.getInputStream());
-            this.cpfTeste = cpfTeste;
+            this.loginModelo = loginModelo;
             this.opc = opc;
         } catch (IOException e){
             closeEverything(socket, transmissor, receptor);
         }
-    }
-
-    public void sendMessage(){
-//        while(socket.isConnected()){
-//            try{
-//                Scanner scanner = new Scanner(System.in);
-//                System.out.println("Digite o nome: ");
-//                String nome = scanner.nextLine();
-//
-//                System.out.println("Digite a idade: ");
-//                int idade = scanner.nextInt();
-//
-//                MeuObj obj = new MeuObj(nome,idade);
-//                System.out.println("Aqui ->" + obj.getNome().toString());
-//                transmissor.writeObject(obj);
-//            } catch (IOException e){
-//                System.out.println(e);
-//                closeEverything(socket,transmissor,receptor);
-//            }
-//        }
-
-    }
-
-    public void sendMessage2(String nome, String cpf, int idade, String senha){
-        try{
-            MeuObj obj = new MeuObj(nome,cpf,idade,senha);
-            System.out.println("sm2 ->" + obj.getNome().toString());
-            transmissor.writeObject(obj);
-        } catch (IOException e){
-            System.out.println(e);
-            closeEverything(socket,transmissor,receptor);
-        }
-    }
-
-    public void listenForMessages(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                MeuObj msgFromGroupChat;
-                while (socket.isConnected()){
-                    try{
-                        msgFromGroupChat = (MeuObj) receptor.readObject();
-                        System.out.println("Aqui ->" + msgFromGroupChat.getNome().toString());
-                    } catch (IOException | ClassNotFoundException e){
-                        closeEverything(socket,transmissor,receptor);
-                    }
-                }
-            }
-        }).start();
     }
 
     public void closeEverything(Socket socket, ObjectOutputStream transmissor, ObjectInputStream receptor){
@@ -105,10 +56,16 @@ public class Cliente implements Runnable {
 
     public void userLogin(){
         try{
-            transmissor.writeObject(cpfTeste);
+            transmissor.writeObject(loginModelo);
+            CastingToDb recebi;
+            recebi = (CastingToDb) receptor.readObject();
+            setCasted(recebi);
+            transmissor.close();
         } catch (IOException e){
             System.out.println(e);
             closeEverything(socket,transmissor,receptor);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -118,7 +75,8 @@ public class Cliente implements Runnable {
             CastingToDb recebi;
             recebi = (CastingToDb) receptor.readObject();
             setCasted(recebi);
-//            System.out.println(recebi.getPayload()+" "+recebi.getStatus());
+            System.out.println(recebi.getPayload()+" "+recebi.getStatus());
+//            Thread.currentThread().interrupt(); @TODO
         } catch (IOException | ClassNotFoundException e){
             System.out.println(e);
             closeEverything(socket,transmissor,receptor);
@@ -131,16 +89,12 @@ public class Cliente implements Runnable {
         if (opc==1){
             this.userLogin();
         }
-        if(opc ==2){
+        if (opc==2){
             this.userSignUp();
         }
         else{
             System.out.println("Usuario nao passou opcao corretamente");
-//            this.listenForMessages();
-//            this.sendMessage2(this.name,this.cpf,this.idade,this.senha);
         }
-//        this.listenForMessages();
-//        this.sendMessage2(this.name,this.cpf,this.idade,this.senha);
     }
 
     public void setCasted(CastingToDb casted) {

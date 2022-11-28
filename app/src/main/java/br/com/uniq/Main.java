@@ -7,14 +7,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Main extends Application implements Initializable {
+    static Socket socket;
     @Override
     public void start(Stage stage) throws Exception {
-        Socket socket = new Socket("localhost", 3000);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
         LoginController loginController = fxmlLoader.getController();
@@ -25,7 +26,9 @@ public class Main extends Application implements Initializable {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        socket = new Socket("localhost", 3000);
+
         launch();
     }
 
