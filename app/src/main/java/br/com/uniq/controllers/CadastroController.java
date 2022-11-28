@@ -7,14 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CadastroController implements Initializable {
@@ -58,10 +57,36 @@ public class CadastroController implements Initializable {
         loginStage.show();
     }
 
-    public void cadastrarNovoCliente(){
-        new Thread(new Cliente(socket, new ModeloDeCadastro(entryNome.getText(), entryCpf.getText(),
-                Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2)).start();
-        voltarParaTelaDeLogin();
+    public void aoClicarNoBotaoCadastrar() throws InterruptedException, IOException {
+        Cliente runnable = new Cliente(socket, new ModeloDeCadastro(entryNome.getText(), entryCpf.getText(),
+                Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2);
+        new Thread(runnable).start();
+        Thread.currentThread().sleep(10000);
+
+        if(runnable.getRespostaDoServidor().getStatus().equals("erro")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(runnable.getRespostaDoServidor().getPayload());
+            alert.showAndWait();
+            System.out.println("Falha ao cadastrar novo usuário");
+            socket.close();
+            this.socket = new Socket("localhost", 3000);
+        }
+        if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
+            System.out.println("Sucesso ao registrar");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Sucesso");
+            alert.setHeaderText(runnable.getRespostaDoServidor().getPayload());
+            Optional<ButtonType> resultadoDoClick = alert.showAndWait();
+            if(resultadoDoClick.isPresent()){
+                alert.setOnCloseRequest((event -> {
+                    alert.close();
+                }));
+                voltarParaTelaDeLogin();
+            }
+
+
+        }
     }
 
     @Override
@@ -71,7 +96,11 @@ public class CadastroController implements Initializable {
         });
 
         btnCadastrar.setOnAction( event ->{
-            cadastrarNovoCliente();
+            try {
+                aoClicarNoBotaoCadastrar();
+            } catch (InterruptedException | IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

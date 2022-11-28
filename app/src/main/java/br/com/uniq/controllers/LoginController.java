@@ -46,14 +46,14 @@ public class LoginController implements Initializable {
 
         btnLogar.setOnAction(event -> {
             try {
-                aoClicarNoBotaoDeCadastro();
+                aoClicarNoBotaoDeLogin();
             } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    protected void aoClicarNoBotaoDeCadastro() throws IOException, InterruptedException {
+    protected void aoClicarNoBotaoDeLogin() throws IOException, InterruptedException {
         Cliente runnable = new Cliente(socket, new ModeloDeLogin(usuarioCpf.getText(),usuarioSenha.getText()),1);
         new Thread(runnable).start();
         Thread.currentThread().sleep(10000);
