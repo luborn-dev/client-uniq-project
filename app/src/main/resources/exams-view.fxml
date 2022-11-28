@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="768.0" minWidth="1024.0" style="-fx-background-color: #4fc3f7;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+   <children>
+      <AnchorPane layoutY="210.0" prefHeight="572.0" prefWidth="1024.0" style="-fx-background-color: white;">
+         <children>
+            <Accordion layoutX="184.0" layoutY="167.0">
+              <panes>
+                <TitledPane animated="false" text="untitled 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 3">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+         </children></AnchorPane>
+      <AnchorPane layoutX="-2.0" layoutY="209.0" prefHeight="58.0" prefWidth="1026.0" style="-fx-background-color: #4ba2c6;">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="462.0" layoutY="11.0" text="Exames" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label contentDisplay="CENTER" layoutX="423.0" layoutY="72.0" text="UNIQ">
+         <font>
+            <Font name="Arial Bold" size="79.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

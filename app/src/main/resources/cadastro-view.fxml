@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #4fc3f7;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.uniq.controllers.CadastroController">
+        <children>
+            <AnchorPane layoutX="-4.0" layoutY="200.0" prefHeight="572.0" prefWidth="1028.0" style="-fx-background-color: white;">
+                <children>
+                    <AnchorPane layoutX="3.0" layoutY="1.0" prefHeight="573.0" prefWidth="1026.0" />
+                </children></AnchorPane>
+            <Label contentDisplay="CENTER" layoutX="423.0" layoutY="72.0" text="UNIQ">
+                <font>
+                    <Font name="Arial Bold" size="79.0" />
+                </font>
+            </Label>
+            <Button fx:id="btnVoltar" layoutX="24.0" layoutY="26.0" prefHeight="45.0" prefWidth="155.0" style="-fx-background-color: #0093c4;" text="VOLTAR" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+            <AnchorPane layoutY="199.0" prefHeight="58.0" prefWidth="1026.0" style="-fx-background-color: #4ba2c6;">
+                <children>
+                    <Label contentDisplay="CENTER" layoutX="437.0" layoutY="10.0" prefHeight="36.0" prefWidth="176.0" text="Cadastre-se!" textFill="WHITE">
+                        <font>
+                            <Font name="Arial" size="30.0" />
+                        </font>
+                    </Label>
+                </children>
+            </AnchorPane>
+            <TextField fx:id="entryNome" layoutX="360.0" layoutY="322.0" prefHeight="40.0" prefWidth="332.0" promptText="Nome">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </TextField>
+            <TextField fx:id="entryCpf" layoutX="360.0" layoutY="412.0" prefHeight="40.0" prefWidth="332.0" promptText="CPF">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </TextField>
+            <TextField fx:id="entryIdade" layoutX="360.0" layoutY="501.0" prefHeight="40.0" prefWidth="332.0" promptText="Idade">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </TextField>
+            <PasswordField fx:id="entrySenha" layoutX="361.0" layoutY="594.0" prefHeight="40.0" prefWidth="334.0" promptText="Senha">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </PasswordField>
+            <Button fx:id="btnCadastrar" alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="662.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="CADASTRAR" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+        </children>
+
+</AnchorPane>
