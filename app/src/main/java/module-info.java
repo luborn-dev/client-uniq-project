@@ -1,7 +1,8 @@
 module br.com.uniq.uniq {
     requires javafx.controls;
     requires javafx.fxml;
-    requires com.jfoenix;
+    requires de.jensd.fx.glyphs.commons;
+    requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
 
     opens br.com.uniq to javafx.fxml;

@@ -2,6 +2,8 @@ package br.com.uniq.controllers;
 
 import br.com.uniq.Cliente;
 import br.com.uniq.ModeloDeExames;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,58 +12,56 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TelaDeExamesController implements Initializable {
 
+    private ArrayList<ModeloDeExames> listaDeExames;
+    private ObservableList<ModeloDeExames> modeloDeExamesObservableList;
     private Socket socket;
     private String cpfDoUsuarioLogado;
     private String nomeDoUsuario;
 
     @FXML
-    private TableColumn<ModeloDeExames, String> clinicaCol;
+    private TableColumn<ModeloDeExames, Date> dataCOL;
 
     @FXML
-    private TableColumn<ModeloDeExames, String> dataCol;
-
-    @FXML
-    private TableColumn<ModeloDeExames, String> tipoDoExameCol;
+    private TableColumn<ModeloDeExames, String> especialidadeCOL;
 
     @FXML
     private Label labelBoasVindas;
 
     @FXML
-    private Button refresh;
+    private TableColumn<ModeloDeExames, String> nomeDoMedicoCOL;
 
-    private ArrayList<ModeloDeExames> listaDeExames;
+    @FXML
+    private Button btnRecarregar;
 
+    @FXML
+    private TableView<ModeloDeExames> tabelaDeExames;
+
+    @FXML
+    private TableColumn<?, ?> tipoDoExameCOL;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refresh.setOnAction(event -> {
+        loadDate();
+        btnRecarregar.setOnAction(event -> {
             try {
                 refreshTable();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
+            } catch (InterruptedException | IOException e) {
                 throw new RuntimeException(e);
             }
         });
-//        labelBoasVindas.setText(labelBoasVindas.getText()+nomeDoUsuario);
-
     }
-
-
 
     private void loadDate(){
-        clinicaCol.setCellValueFactory(new PropertyValueFactory<>("clinica"));
-        dataCol.setCellValueFactory(new PropertyValueFactory<>("data"));
-        tipoDoExameCol.setCellValueFactory(new PropertyValueFactory<>("tipoDoExame"));
-    }
-
-    public String getCpfDoUsuarioLogado() {
-        return cpfDoUsuarioLogado;
+        especialidadeCOL.setCellValueFactory(new PropertyValueFactory<>("especialidadeDoMedico"));
+        tipoDoExameCOL.setCellValueFactory(new PropertyValueFactory<>("tipoDoExame"));
+        nomeDoMedicoCOL.setCellValueFactory(new PropertyValueFactory<>("nomeDoMedico"));
+        dataCOL.setCellValueFactory(new PropertyValueFactory<>("data"));
     }
 
     private void refreshTable() throws InterruptedException, IOException {
@@ -80,10 +80,8 @@ public class TelaDeExamesController implements Initializable {
         if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
             listaDeExames = runnable.getRespostaDoServidor().getPayload2();
             System.out.println("Sucesso ao encontrar exames");
-            listaDeExames.forEach(modeloDeExames -> {
-                System.out.println(modeloDeExames.getData()+", "+modeloDeExames.getTipoDoExame()+
-                        ", "+modeloDeExames.getNomeDoMedico()+", "+modeloDeExames.getEspecialidadeDoMedico());
-            });
+            modeloDeExamesObservableList = FXCollections.observableArrayList(listaDeExames);
+            tabelaDeExames.setItems(modeloDeExamesObservableList);
         }
     }
 
@@ -98,4 +96,9 @@ public class TelaDeExamesController implements Initializable {
     public void setCpfDoUsuarioLogado(String cpfDoUsuarioLogado) {
         this.cpfDoUsuarioLogado = cpfDoUsuarioLogado;
     }
+
+    public String getCpfDoUsuarioLogado() {
+        return cpfDoUsuarioLogado;
+    }
+
 }
