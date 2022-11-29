@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="768.0" minWidth="1024.0" style="-fx-background-color: #4fc3f7;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.uniq.controllers.HomeController">
+<AnchorPane minHeight="768.0" minWidth="1024.0" style="-fx-background-color: #4fc3f7;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.uniq.controllers.TelaDeExamesController">
    <children>
       <AnchorPane layoutY="210.0" prefHeight="572.0" prefWidth="1024.0" style="-fx-background-color: white;">
          <children>

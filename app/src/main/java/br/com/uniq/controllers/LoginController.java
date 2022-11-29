@@ -80,7 +80,7 @@ public class LoginController implements Initializable {
     public void trocarParaTelaDeExames(){
         btnLogar.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/br/com/uniq/exams-view.fxml"));
+        loader.setLocation(getClass().getResource("/br/com/uniq/exames-view.fxml"));
         try {
             loader.load();
         } catch (IOException e) {
@@ -90,10 +90,10 @@ public class LoginController implements Initializable {
         Stage homeStage = new Stage();
         homeStage.setScene(new Scene(root));
         homeStage.setResizable(false);
-        HomeController homeController = loader.getController();
-        homeController.setCpfDoUsuarioLogado(usuarioCpf.getText());
-        homeController.setSocket(socket);
-        homeController.setNomeDoUsuario(nomeDoUsuarioLogado);
+        TelaDeExamesController telaDeExamesController = loader.getController();
+        telaDeExamesController.setCpfDoUsuarioLogado(usuarioCpf.getText());
+        telaDeExamesController.setSocket(socket);
+        telaDeExamesController.setNomeDoUsuario(nomeDoUsuarioLogado);
         homeStage.show();
     }
 

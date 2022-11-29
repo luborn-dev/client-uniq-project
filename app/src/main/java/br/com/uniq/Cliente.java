@@ -56,20 +56,21 @@ public class Cliente implements Runnable {
 
     @Override
     public void run() {
-        if (this.opc==1){
-            System.out.println("Cliente enviando solic. login");
-            this.servidorRecebaLogin();
-        }
-        if (this.opc==2){
-            System.out.println("Cliente enviando solic. cadastro");
-            this.servidorRecebaCadastro();
-        }
-        if (this.opc==3){
-            System.out.println("Cliente enviando solic. exames");
-            this.servidorRecebaSolicitacaoDeExames();
-        }
-        else{
-            System.out.println("Usuario nao passou opcao corretamente");
+        switch (this.opc){
+            case 1:
+                System.out.println("Cliente enviando solic. login");
+                this.servidorRecebaLogin();
+                break;
+            case 2:
+                System.out.println("Cliente enviando solic. cadastro");
+                this.servidorRecebaCadastro();
+                break;
+            case 3:
+                System.out.println("Cliente enviando solic. exames");
+                this.servidorRecebaSolicitacaoDeExames();
+                break;
+            default:
+                break;
         }
     }
 

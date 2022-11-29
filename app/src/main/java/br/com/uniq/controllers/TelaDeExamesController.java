@@ -2,8 +2,6 @@ package br.com.uniq.controllers;
 
 import br.com.uniq.Cliente;
 import br.com.uniq.ModeloDeExames;
-import br.com.uniq.ModeloDeLogin;
-import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -15,7 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class HomeController implements Initializable {
+public class TelaDeExamesController implements Initializable {
 
     private Socket socket;
     private String cpfDoUsuarioLogado;
