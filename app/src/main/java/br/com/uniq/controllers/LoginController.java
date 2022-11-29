@@ -58,7 +58,8 @@ public class LoginController implements Initializable {
     protected void aoClicarNoBotaoDeLogin() throws IOException, InterruptedException {
         Cliente runnable = new Cliente(socket, new ModeloDeLogin(usuarioCpf.getText(),usuarioSenha.getText()),1);
         new Thread(runnable).start();
-        Thread.currentThread().sleep(10000);
+//        PARA CONEXAO CLOUD
+        Thread.currentThread().sleep(500);
         if(runnable.getRespostaDoServidor().getStatus().equals("erro")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");

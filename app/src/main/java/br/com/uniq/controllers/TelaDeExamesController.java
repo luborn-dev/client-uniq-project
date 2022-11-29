@@ -67,7 +67,8 @@ public class TelaDeExamesController implements Initializable {
     private void refreshTable() throws InterruptedException, IOException {
         Cliente runnable = new Cliente(socket, getCpfDoUsuarioLogado(),3);
         new Thread(runnable).start();
-        Thread.currentThread().sleep(10000);
+//        PARA CONEXAO CLOUD SLEEP 10000
+        Thread.currentThread().sleep(500);
         if(runnable.getRespostaDoServidor().getStatus().equals("erro")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");

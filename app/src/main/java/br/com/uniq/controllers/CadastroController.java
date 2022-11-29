@@ -63,8 +63,8 @@ public class CadastroController implements Initializable {
         Cliente runnable = new Cliente(socket, new ModeloDeCadastro(entryNome.getText(), entryCpf.getText(),
                 Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2);
         new Thread(runnable).start();
-        Thread.currentThread().sleep(10000);
-
+//        PARA CONEXAO CLOUD SLEEP 10000
+        Thread.currentThread().sleep(500);
         if(runnable.getRespostaDoServidor().getStatus().equals("erro")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
