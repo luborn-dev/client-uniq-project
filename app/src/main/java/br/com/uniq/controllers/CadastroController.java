@@ -54,6 +54,8 @@ public class CadastroController implements Initializable {
         Stage loginStage = new Stage();
         loginStage.setScene(new Scene(root3));
         loginStage.setResizable(false);
+        LoginController loginController = loader3.getController();
+        loginController.setSocket(socket);
         loginStage.show();
     }
 
@@ -82,10 +84,10 @@ public class CadastroController implements Initializable {
                 alert.setOnCloseRequest((event -> {
                     alert.close();
                 }));
+                socket.close();
+                this.socket = new Socket("localhost", 3000);
                 voltarParaTelaDeLogin();
             }
-
-
         }
     }
 

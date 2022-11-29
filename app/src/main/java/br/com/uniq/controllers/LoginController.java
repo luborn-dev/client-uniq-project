@@ -33,6 +33,8 @@ public class LoginController implements Initializable {
 
     private Socket socket;
 
+    private String nomeDoUsuarioLogado;
+
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
@@ -67,7 +69,10 @@ public class LoginController implements Initializable {
             this.socket = new Socket("localhost", 3000);
         }
         if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
+            nomeDoUsuarioLogado = runnable.getRespostaDoServidor().getPayload();
             System.out.println("Sucesso ao logar");
+            socket.close();
+            this.socket = new Socket("localhost", 3000);
             trocarParaTelaDeExames();
         }
     }
@@ -85,7 +90,10 @@ public class LoginController implements Initializable {
         Stage homeStage = new Stage();
         homeStage.setScene(new Scene(root));
         homeStage.setResizable(false);
-        HomeController homeController = loader.getController();  // @TODO: Exames, etc.
+        HomeController homeController = loader.getController();
+        homeController.setCpfDoUsuarioLogado(usuarioCpf.getText());
+        homeController.setSocket(socket);
+        homeController.setNomeDoUsuario(nomeDoUsuarioLogado);
         homeStage.show();
     }
 

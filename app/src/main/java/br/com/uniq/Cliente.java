@@ -13,19 +13,7 @@ public class Cliente implements Runnable {
     private ModeloDeCadastro modeloDeCadastro;
     private ModeloDeLogin modeloDeLogin;
     private RespostaDoServidor respostaDoServidor;
-
-    // CONSTRUTOR PARA ENVIAR SOLICITACAO DE CADASTRO
-    public Cliente(Socket socket, ModeloDeCadastro modeloDeCadastro, int opc){
-        try{
-            this.socket = socket;
-            this.transmissor = new ObjectOutputStream(socket.getOutputStream());
-            this.receptor    = new ObjectInputStream(socket.getInputStream());
-            this.modeloDeCadastro = modeloDeCadastro;
-            this.opc = opc;
-        } catch (IOException e){
-            fecharTodasConexoes(socket, transmissor, receptor);
-        }
-    }
+    private String cpfDoUsuarioLogado;
 
     // CONSTRUTOR PARA ENVIAR SOLICITACAO DE LOGIN
     public Cliente(Socket socket, ModeloDeLogin modeloDeLogin, int opc){
@@ -40,13 +28,45 @@ public class Cliente implements Runnable {
         }
     }
 
+    // CONSTRUTOR PARA ENVIAR SOLICITACAO DE CADASTRO
+    public Cliente(Socket socket, ModeloDeCadastro modeloDeCadastro, int opc){
+        try{
+            this.socket = socket;
+            this.transmissor = new ObjectOutputStream(socket.getOutputStream());
+            this.receptor    = new ObjectInputStream(socket.getInputStream());
+            this.modeloDeCadastro = modeloDeCadastro;
+            this.opc = opc;
+        } catch (IOException e){
+            fecharTodasConexoes(socket, transmissor, receptor);
+        }
+    }
+
+    // CONSTRUTOR PARA ENVIAR SOLICITACAO DE EXAMES
+    public Cliente(Socket socket, String cpf, int opc){
+        try{
+            this.socket = socket;
+            this.transmissor = new ObjectOutputStream(socket.getOutputStream());
+            this.receptor    = new ObjectInputStream(socket.getInputStream());
+            this.cpfDoUsuarioLogado = cpf;
+            this.opc = opc;
+        } catch (IOException e){
+            fecharTodasConexoes(socket, transmissor, receptor);
+        }
+    }
+
     @Override
     public void run() {
-        if (opc==1){
+        if (this.opc==1){
+            System.out.println("Cliente enviando solic. login");
             this.servidorRecebaLogin();
         }
-        if (opc==2){
+        if (this.opc==2){
+            System.out.println("Cliente enviando solic. cadastro");
             this.servidorRecebaCadastro();
+        }
+        if (this.opc==3){
+            System.out.println("Cliente enviando solic. exames");
+            this.servidorRecebaSolicitacaoDeExames();
         }
         else{
             System.out.println("Usuario nao passou opcao corretamente");
@@ -79,6 +99,22 @@ public class Cliente implements Runnable {
         } catch (IOException | ClassNotFoundException e){
             System.out.println(e);
             fecharTodasConexoes(socket,transmissor,receptor);
+        }
+    }
+
+    public void servidorRecebaSolicitacaoDeExames(){
+        try{
+            transmissor.writeObject(cpfDoUsuarioLogado);
+            RespostaDoServidor recebi;
+            recebi = (RespostaDoServidor) receptor.readObject();
+            setRespostaDoServidor(recebi);
+            System.out.println(recebi.getPayload2()+" "+recebi.getStatus());
+//            Thread.currentThread().interrupt();
+        } catch (IOException e){
+            System.out.println(e);
+            fecharTodasConexoes(socket,transmissor,receptor);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
