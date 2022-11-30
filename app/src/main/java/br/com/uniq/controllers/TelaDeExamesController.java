@@ -13,6 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -81,29 +84,20 @@ public class TelaDeExamesController implements Initializable {
                     dialog.initModality(Modality.APPLICATION_MODAL);
                     VBox dialogVbox = new VBox(20);
 
-                    Text tipoExame = new Text("Exame realizado: "+clickedRow.getTipoDoExame());
-                    Text nomeMedico = new Text("Nome do médico: "+clickedRow.getNomeDoMedico());
-                    Text especMedico = new Text("Especialidade do médico: "+clickedRow.getEspecialidadeDoMedico());
-                    Text nomeClinica = new Text("Local do exame realizado: "+clickedRow.getNomeDaClinica());
-                    Text dataExame = new Text("Data realização: "+clickedRow.getData());
-                    Text conclusao = new Text("Parecer médico: "+clickedRow.getConclusao());
+                    Text resultadosDoExame = new Text("Data realização: "+clickedRow.getData()+
+                            "\n\nClinica responsável pelo exame: " +clickedRow.getNomeDaClinica()+
+                            "\n\nExame realizado: " +clickedRow.getTipoDoExame()+
+                            "\n\nNome do médico: " +clickedRow.getNomeDoMedico()+
+                            "\n\nEspecialidade do médico: "+clickedRow.getEspecialidadeDoMedico()+
+                            "\n\nParecer médico: "+clickedRow.getConclusao()
+                    );
 
-                    tipoExame.setWrappingWidth(300);
-                    nomeMedico.setWrappingWidth(300);
-                    especMedico.setWrappingWidth(300);
-                    nomeClinica.setWrappingWidth(300);
-                    dataExame.setWrappingWidth(300);
-                    conclusao.setWrappingWidth(300);
-
-                    dialogVbox.getChildren().add(tipoExame);
-                    dialogVbox.getChildren().add(nomeMedico);
-                    dialogVbox.getChildren().add(especMedico);
-                    dialogVbox.getChildren().add(nomeClinica);
-                    dialogVbox.getChildren().add(dataExame);
-                    dialogVbox.getChildren().add(conclusao);
+                    resultadosDoExame.setFont(Font.font("verdana", FontPosture.REGULAR,18));
+                    resultadosDoExame.setWrappingWidth(600);
+                    dialogVbox.getChildren().add(resultadosDoExame);
 
                     dialogVbox.setAlignment(Pos.CENTER);
-                    Scene dialogScene = new Scene(dialogVbox, 400, 600);
+                    Scene dialogScene = new Scene(dialogVbox, 800, 500);
                     dialog.setScene(dialogScene);
                     dialog.show();
                 }
@@ -146,6 +140,7 @@ public class TelaDeExamesController implements Initializable {
             System.out.println("Sucesso ao encontrar exames");
             modeloDeExamesObservableList = FXCollections.observableArrayList(listaDeExames);
             tabelaDeExames.setItems(modeloDeExamesObservableList);
+            tabelaDeExames.getSortOrder().add(dataCOL);
             socket.close();
             this.socket = new Socket("localhost", 3002);
         }

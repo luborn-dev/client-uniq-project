@@ -35,6 +35,9 @@ public class CadastroController implements Initializable {
     @FXML
     private PasswordField entrySenha;
 
+    @FXML
+    private TextField entrySobrenome;
+
     private Socket socket;
 
     public void setSocket(Socket socket) {
@@ -60,7 +63,7 @@ public class CadastroController implements Initializable {
     }
 
     public void aoClicarNoBotaoCadastrar() throws InterruptedException, IOException {
-        ServerHandler runnable = new ServerHandler(socket, new ModeloDeCadastro(entryNome.getText(), entryCpf.getText(),
+        ServerHandler runnable = new ServerHandler(socket, new ModeloDeCadastro(entryNome.getText().concat(" "+entrySobrenome.getText()), entryCpf.getText(),
                 Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2);
         new Thread(runnable).start();
 //        PARA CONEXAO CLOUD SLEEP 10000

@@ -71,7 +71,7 @@ public class LoginController implements Initializable {
             System.out.println("Sucesso ao logar");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Sucesso");
-            alert.setHeaderText("Bem-vindo(a), " + runnable.getRespostaDoServidor().getPayload());
+            alert.setHeaderText("Bem-vindo(a), " + runnable.getRespostaDoServidor().getPayload() +".");
             Optional<ButtonType> resultadoDoClick = alert.showAndWait();
             if(resultadoDoClick.isPresent()) {
                 alert.setOnCloseRequest((event -> {
