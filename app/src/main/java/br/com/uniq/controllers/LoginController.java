@@ -7,15 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -70,11 +68,20 @@ public class LoginController implements Initializable {
             this.socket = new Socket("localhost", 3000);
         }
         if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
-            nomeDoUsuarioLogado = runnable.getRespostaDoServidor().getPayload();
             System.out.println("Sucesso ao logar");
-            socket.close();
-            this.socket = new Socket("localhost", 3000);
-            trocarParaTelaDeExames();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Sucesso");
+            alert.setHeaderText("Bem-vindo(a), " + runnable.getRespostaDoServidor().getPayload());
+            Optional<ButtonType> resultadoDoClick = alert.showAndWait();
+            if(resultadoDoClick.isPresent()) {
+                alert.setOnCloseRequest((event -> {
+                    alert.close();
+                }));
+                nomeDoUsuarioLogado = runnable.getRespostaDoServidor().getPayload();
+                socket.close();
+                this.socket = new Socket("localhost", 3000);
+                trocarParaTelaDeExames();
+            }
         }
     }
 

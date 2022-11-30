@@ -2,6 +2,7 @@ package br.com.uniq.controllers;
 
 import br.com.uniq.Cliente;
 import br.com.uniq.ModeloDeExames;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,9 +46,25 @@ public class TelaDeExamesController implements Initializable {
     @FXML
     private TableColumn<?, ?> tipoDoExameCOL;
 
+    public String getNomeDoUsuario() {
+        return nomeDoUsuario;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadDate();
+
+        Platform.runLater(()->{
+            labelBoasVindas.setText("Paciente "+getNomeDoUsuario());
+            try {
+                refreshTable();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         btnRecarregar.setOnAction(event -> {
             try {
                 refreshTable();
@@ -83,6 +100,8 @@ public class TelaDeExamesController implements Initializable {
             System.out.println("Sucesso ao encontrar exames");
             modeloDeExamesObservableList = FXCollections.observableArrayList(listaDeExames);
             tabelaDeExames.setItems(modeloDeExamesObservableList);
+            socket.close();
+            this.socket = new Socket("localhost", 3000);
         }
     }
 

@@ -95,7 +95,7 @@ public class Cliente implements Runnable {
             RespostaDoServidor recebi;
             recebi = (RespostaDoServidor) receptor.readObject();
             setRespostaDoServidor(recebi);
-            System.out.println(recebi.getPayload()+" "+recebi.getStatus());
+//            System.out.println(recebi.getPayload()+" "+recebi.getStatus());
 //            Thread.currentThread().interrupt(); @TODO
         } catch (IOException | ClassNotFoundException e){
             System.out.println(e);
@@ -109,7 +109,7 @@ public class Cliente implements Runnable {
             RespostaDoServidor recebi;
             recebi = (RespostaDoServidor) receptor.readObject();
             setRespostaDoServidor(recebi);
-            System.out.println(recebi.getPayload2()+" "+recebi.getStatus());
+//            System.out.println(recebi.getPayload2()+" "+recebi.getStatus());
 //            Thread.currentThread().interrupt();
         } catch (IOException e){
             System.out.println(e);
