@@ -7,15 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -32,6 +30,8 @@ public class LoginController implements Initializable {
     private Button btnCadastrar;
 
     private Socket socket;
+
+    private String nomeDoUsuarioLogado;
 
     public void setSocket(Socket socket) {
         this.socket = socket;
@@ -56,7 +56,8 @@ public class LoginController implements Initializable {
     protected void aoClicarNoBotaoDeLogin() throws IOException, InterruptedException {
         Cliente runnable = new Cliente(socket, new ModeloDeLogin(usuarioCpf.getText(),usuarioSenha.getText()),1);
         new Thread(runnable).start();
-        Thread.currentThread().sleep(10000);
+//        PARA CONEXAO CLOUD
+        Thread.currentThread().sleep(500);
         if(runnable.getRespostaDoServidor().getStatus().equals("erro")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
@@ -68,14 +69,26 @@ public class LoginController implements Initializable {
         }
         if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
             System.out.println("Sucesso ao logar");
-            trocarParaTelaDeExames();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Sucesso");
+            alert.setHeaderText("Bem-vindo(a), " + runnable.getRespostaDoServidor().getPayload());
+            Optional<ButtonType> resultadoDoClick = alert.showAndWait();
+            if(resultadoDoClick.isPresent()) {
+                alert.setOnCloseRequest((event -> {
+                    alert.close();
+                }));
+                nomeDoUsuarioLogado = runnable.getRespostaDoServidor().getPayload();
+                socket.close();
+                this.socket = new Socket("localhost", 3000);
+                trocarParaTelaDeExames();
+            }
         }
     }
 
     public void trocarParaTelaDeExames(){
         btnLogar.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/br/com/uniq/exams-view.fxml"));
+        loader.setLocation(getClass().getResource("/br/com/uniq/exames-view.fxml"));
         try {
             loader.load();
         } catch (IOException e) {
@@ -85,7 +98,10 @@ public class LoginController implements Initializable {
         Stage homeStage = new Stage();
         homeStage.setScene(new Scene(root));
         homeStage.setResizable(false);
-        HomeController homeController = loader.getController();  // @TODO: Exames, etc.
+        TelaDeExamesController telaDeExamesController = loader.getController();
+        telaDeExamesController.setCpfDoUsuarioLogado(usuarioCpf.getText());
+        telaDeExamesController.setSocket(socket);
+        telaDeExamesController.setNomeDoUsuario(nomeDoUsuarioLogado);
         homeStage.show();
     }
 

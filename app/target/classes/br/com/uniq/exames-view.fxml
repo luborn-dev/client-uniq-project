@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="768.0" minWidth="1024.0" style="-fx-background-color: #4fc3f7;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.uniq.controllers.TelaDeExamesController">
+   <children>
+      <AnchorPane layoutY="210.0" prefHeight="572.0" prefWidth="1024.0" style="-fx-background-color: white;">
+         <children>
+            <Accordion layoutX="184.0" layoutY="167.0" />
+            <TableView fx:id="tabelaDeExames" layoutX="44.0" layoutY="157.0" prefHeight="388.0" prefWidth="931.0">
+              <columns>
+                <TableColumn fx:id="dataCOL" prefWidth="137.00371932983398" text="DATA" />
+                <TableColumn fx:id="tipoDoExameCOL" minWidth="0.0" prefWidth="248.3263397216797" text="TIPO DO EXAME" />
+                  <TableColumn fx:id="nomeDoMedicoCOL" minWidth="0.0" prefWidth="272.4641418457031" text="NOME DO MEDICO" />
+                  <TableColumn fx:id="especialidadeCOL" prefWidth="345.535888671875" text="ESPECIALIDADE" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnRecarregar" layoutX="43.0" layoutY="116.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-cursor: hand;">
+               <graphic>
+                  <FontAwesomeIconView glyphName="REFRESH" size="32" />
+               </graphic></Button>
+            <Label fx:id="labelBoasVindas" alignment="CENTER" contentDisplay="CENTER" layoutX="255.0" layoutY="78.0" prefHeight="36.0" prefWidth="527.0">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="-2.0" layoutY="209.0" prefHeight="58.0" prefWidth="1026.0" style="-fx-background-color: #4ba2c6;">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="462.0" layoutY="11.0" text="Exames" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label contentDisplay="CENTER" layoutX="423.0" layoutY="72.0" text="UNIQ">
+         <font>
+            <Font name="Arial Bold" size="79.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
