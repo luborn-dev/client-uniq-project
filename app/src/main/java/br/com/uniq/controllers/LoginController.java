@@ -1,7 +1,7 @@
 package br.com.uniq.controllers;
 
-import br.com.uniq.Cliente;
-import br.com.uniq.ModeloDeLogin;
+import br.com.uniq.ServerHandler;
+import br.com.uniq.modelos.ModeloDeLogin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
     }
 
     protected void aoClicarNoBotaoDeLogin() throws IOException, InterruptedException {
-        Cliente runnable = new Cliente(socket, new ModeloDeLogin(usuarioCpf.getText(),usuarioSenha.getText()),1);
+        ServerHandler runnable = new ServerHandler(socket, new ModeloDeLogin(usuarioCpf.getText(),usuarioSenha.getText()),1);
         new Thread(runnable).start();
 //        PARA CONEXAO CLOUD
         Thread.currentThread().sleep(500);
@@ -65,13 +65,13 @@ public class LoginController implements Initializable {
             alert.showAndWait();
             System.out.println("Falha ao logar");
             socket.close();
-            this.socket = new Socket("localhost", 3000);
+            this.socket = new Socket("localhost", 3002);
         }
         if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
             System.out.println("Sucesso ao logar");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Sucesso");
-            alert.setHeaderText("Bem-vindo(a), " + runnable.getRespostaDoServidor().getPayload());
+            alert.setHeaderText("Bem-vindo(a), " + runnable.getRespostaDoServidor().getPayload() +".");
             Optional<ButtonType> resultadoDoClick = alert.showAndWait();
             if(resultadoDoClick.isPresent()) {
                 alert.setOnCloseRequest((event -> {
@@ -79,7 +79,7 @@ public class LoginController implements Initializable {
                 }));
                 nomeDoUsuarioLogado = runnable.getRespostaDoServidor().getPayload();
                 socket.close();
-                this.socket = new Socket("localhost", 3000);
+                this.socket = new Socket("localhost", 3002);
                 trocarParaTelaDeExames();
             }
         }

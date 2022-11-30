@@ -1,20 +1,20 @@
-package br.com.uniq;
+package br.com.uniq.modelos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RespostaDoServidor implements Serializable {
+public class ModeloDeRespostaDoServidor implements Serializable {
     private String payload;
     private String status;
     private ArrayList<ModeloDeExames> payload2;
 
 
-    public RespostaDoServidor(String payload, String status) {
+    public ModeloDeRespostaDoServidor(String payload, String status) {
         this.payload = payload;
         this.status = status;
     }
 
-    public RespostaDoServidor(ArrayList<ModeloDeExames> payload2, String status) {
+    public ModeloDeRespostaDoServidor(ArrayList<ModeloDeExames> payload2, String status) {
         this.payload2 = payload2;
         this.status = status;
     }

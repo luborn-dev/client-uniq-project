@@ -36,27 +36,27 @@
                     </Label>
                 </children>
             </AnchorPane>
-            <TextField fx:id="entryNome" layoutX="360.0" layoutY="322.0" prefHeight="40.0" prefWidth="332.0" promptText="Nome">
+            <TextField fx:id="entryNome" layoutX="360.0" layoutY="302.0" prefHeight="40.0" prefWidth="332.0" promptText="Nome">
                 <font>
                     <Font size="20.0" />
                 </font>
             </TextField>
-            <TextField fx:id="entryCpf" layoutX="360.0" layoutY="412.0" prefHeight="40.0" prefWidth="332.0" promptText="CPF">
+            <TextField fx:id="entryCpf" layoutX="360.0" layoutY="464.0" prefHeight="40.0" prefWidth="332.0" promptText="CPF">
                 <font>
                     <Font size="20.0" />
                 </font>
             </TextField>
-            <TextField fx:id="entryIdade" layoutX="360.0" layoutY="501.0" prefHeight="40.0" prefWidth="332.0" promptText="Idade">
+            <TextField fx:id="entryIdade" layoutX="360.0" layoutY="543.0" prefHeight="40.0" prefWidth="332.0" promptText="Idade">
                 <font>
                     <Font size="20.0" />
                 </font>
             </TextField>
-            <PasswordField fx:id="entrySenha" layoutX="361.0" layoutY="594.0" prefHeight="40.0" prefWidth="334.0" promptText="Senha">
+            <PasswordField fx:id="entrySenha" layoutX="361.0" layoutY="623.0" prefHeight="40.0" prefWidth="334.0" promptText="Senha">
                 <font>
                     <Font size="20.0" />
                 </font>
             </PasswordField>
-            <Button fx:id="btnCadastrar" alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="662.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="CADASTRAR" textFill="WHITE">
+            <Button fx:id="btnCadastrar" alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="692.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #0093c4;" text="CADASTRAR" textFill="WHITE">
                 <font>
                     <Font size="18.0" />
                 </font>
@@ -64,6 +64,11 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
+      <TextField fx:id="entrySobrenome" layoutX="360.0" layoutY="383.0" prefHeight="40.0" prefWidth="332.0" promptText="Sobrenome">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
         </children>
 
 </AnchorPane>

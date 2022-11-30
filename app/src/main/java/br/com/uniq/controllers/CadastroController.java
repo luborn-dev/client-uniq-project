@@ -1,7 +1,7 @@
 package br.com.uniq.controllers;
 
-import br.com.uniq.Cliente;
-import br.com.uniq.ModeloDeCadastro;
+import br.com.uniq.ServerHandler;
+import br.com.uniq.modelos.ModeloDeCadastro;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +35,9 @@ public class CadastroController implements Initializable {
     @FXML
     private PasswordField entrySenha;
 
+    @FXML
+    private TextField entrySobrenome;
+
     private Socket socket;
 
     public void setSocket(Socket socket) {
@@ -60,7 +63,7 @@ public class CadastroController implements Initializable {
     }
 
     public void aoClicarNoBotaoCadastrar() throws InterruptedException, IOException {
-        Cliente runnable = new Cliente(socket, new ModeloDeCadastro(entryNome.getText(), entryCpf.getText(),
+        ServerHandler runnable = new ServerHandler(socket, new ModeloDeCadastro(entryNome.getText().concat(" "+entrySobrenome.getText()), entryCpf.getText(),
                 Integer.parseInt(entryIdade.getText()),entrySenha.getText()),2);
         new Thread(runnable).start();
 //        PARA CONEXAO CLOUD SLEEP 10000
@@ -72,10 +75,10 @@ public class CadastroController implements Initializable {
             alert.showAndWait();
             System.out.println("Falha ao cadastrar novo usuário");
             socket.close();
-            this.socket = new Socket("localhost", 3000);
+            this.socket = new Socket("localhost", 3002);
         }
         if(runnable.getRespostaDoServidor().getStatus().equals("ok")){
-            System.out.println("Sucesso ao registrar");
+            System.out.println("Sucesso ao cadastrar novo usuário");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Sucesso");
             alert.setHeaderText(runnable.getRespostaDoServidor().getPayload());
@@ -85,7 +88,7 @@ public class CadastroController implements Initializable {
                     alert.close();
                 }));
                 socket.close();
-                this.socket = new Socket("localhost", 3000);
+                this.socket = new Socket("localhost", 3002);
                 voltarParaTelaDeLogin();
             }
         }

@@ -1,6 +1,6 @@
-package br.com.uniq;
+package br.com.uniq.modelos;
 
-public class ModeloDeCadastro extends Comunicado{
+public class ModeloDeCadastro extends ModeloDeComunicado {
     private String nome;
     private String cpf;
     private int idade;

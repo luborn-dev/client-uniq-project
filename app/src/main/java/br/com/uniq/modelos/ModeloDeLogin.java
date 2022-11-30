@@ -1,6 +1,6 @@
-package br.com.uniq;
+package br.com.uniq.modelos;
 
-public class ModeloDeLogin extends Comunicado {
+public class ModeloDeLogin extends ModeloDeComunicado {
     private String cpf;
     private String senha;
 
