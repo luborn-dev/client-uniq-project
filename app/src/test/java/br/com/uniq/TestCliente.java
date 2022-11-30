@@ -5,7 +5,7 @@ package br.com.uniq;
 
 import org.junit.jupiter.api.Test;
 
-class TestMain {
+class TestCliente {
     @Test void appHasAGreeting() {
 
     }

@@ -9,4 +9,6 @@ module br.com.uniq.uniq {
     exports br.com.uniq;
     exports br.com.uniq.controllers;
     opens br.com.uniq.controllers to javafx.fxml;
+    exports br.com.uniq.modelos;
+    opens br.com.uniq.modelos to javafx.fxml;
 }
