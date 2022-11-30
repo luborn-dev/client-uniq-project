@@ -22,9 +22,15 @@ public class Cliente extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws IOException {
-        socket = new Socket("localhost", 3002);
-        launch();
+    public static void main(String[] args) {
+        try{
+            socket = new Socket("localhost", 3002);
+            System.out.println("CONEXÃO COM SERVIDOR BEM-SUCEDIDA");
+            launch();
+        } catch (IOException e){
+            System.out.println("CONEXÃO COM SERVIDOR FALHOU");
+            System.out.println("Erro -> "+e);
+            System.exit(0);
+        }
     }
-
 }
